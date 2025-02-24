@@ -114,7 +114,7 @@ void tree(TreeNodePtr t,int n)
    {
       tree(t->rightPtr,n+1);
       for(int i=n;i>0;i--)
-      printf("  ");
+      printf("      ");
       printf("%3d\n",t->data);
       tree(t->leftPtr,n+1);
    }
