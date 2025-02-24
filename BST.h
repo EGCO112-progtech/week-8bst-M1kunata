@@ -14,7 +14,8 @@ typedef struct {
 }BST;
 
 // prototypes
-
+void preOrder(TreeNodePtr );
+void postOrder(TreeNodePtr);
 void insertNode( BST *, int );
 /*
 void insertNode_R(TreeNodePtr * t,int value){
@@ -28,7 +29,7 @@ void insertNode_R(TreeNodePtr * t,int value){
   }
   else{
      if(t->data>=value) //left
-        
+         
      else //right
       
    }
@@ -42,28 +43,38 @@ void insertNode( BST *b, int value ){
 		new_node->leftPtr=NULL;
 		new_node->rightPtr=NULL;
 		new_node->data=value;
+   }
 		/*First Node*/
 		if(!b->root)	b->root=new_node;
 		else {
 while(!inserted){
    if(t->data >=value){
      /* move/insert to the left*/
-    
-     }
-  	 
-  }
+      if(t->leftPtr==NULL)
+      {
+         t->leftPtr=new_node;
+         inserted=1;
+      }
+         else{
+         t=t->leftPtr;
+      }
+      }
    else{
 	      /* move/ insert to the right*/
-    
+      if(t->rightPtr==NULL){
+      t->rightPtr=new_node;
+      inserted=1;}
+      else{
+         t=t->rightPtr;
+      }
     }
-	}
+	}//end while
    
-  }//end while		
   }//end else;
   b->size++;
   }
   
-}//end function
+//end function
 
 
 void inOrder( TreeNodePtr treePtr )
@@ -78,3 +89,33 @@ void inOrder( TreeNodePtr treePtr )
       inOrder( treePtr->rightPtr ); //Recursion to the right
    } // end if                          
 } // end 
+void postOrder(TreeNodePtr t)
+{
+   if(t!=NULL)
+   {
+      postOrder(t->leftPtr);
+      postOrder(t->rightPtr);
+      printf("%3d",t->data);
+   }
+}
+void preOrder(TreeNodePtr t)
+{
+   if(t!=NULL)
+   {
+   printf("%3d",t->data);
+   preOrder(t->leftPtr);
+   preOrder(t->rightPtr);
+}
+}
+void tree(TreeNodePtr t,int n)
+{
+   
+   if(t!=NULL)
+   {
+      tree(t->rightPtr,n+1);
+      for(int i=n;i>0;i--)
+      printf("  ");
+      printf("%3d\n",t->data);
+      tree(t->leftPtr,n+1);
+   }
+}
